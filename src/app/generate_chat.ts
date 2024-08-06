@@ -1,18 +1,24 @@
 "use server";
 
 import { generateText } from "ai";
-import { openai } from "@ai-sdk/openai";
+import { createOpenAI, openai } from "@ai-sdk/openai";
+import { getTokenOpenai } from "helpers/openai";
 
 export interface Message {
   role: "user" | "assistant";
   content: string;
 }
 
-export async function continueConversation(history: Message[]) {
+export async function continueConversation(history: Message[], apiKey: string) {
   "use server";
 
+  const openAIKey = apiKey;
+  const openaiInstance = createOpenAI({
+    apiKey: openAIKey,
+  });
+
   const { text } = await generateText({
-    model: openai("gpt-4o"),
+    model: openaiInstance("gpt-4o"),
     system: `
 Tu nombre es FlixBot y eres un experto en películas y series de televisión. Tu misión es ayudar a los usuarios a encontrar el título de la película o serie que están buscando o no recuerdan. Sigue estas directrices:
 Saludo Inicial: Si el usuario solo te saluda, presenta quién eres y cómo puedes ayudar de manera clara y amigable.

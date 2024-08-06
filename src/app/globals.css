@@ -38,3 +38,11 @@ img {
     margin-bottom: 30px;
   }
 }
+
+.container_api_key {
+  position: fixed;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  bottom: 10px;
+  right: 10px;
+  padding: 10px;
+}

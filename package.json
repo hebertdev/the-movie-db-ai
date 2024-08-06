@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-   "@ai-sdk/openai": "^0.0.37",
+    "@ai-sdk/openai": "^0.0.37",
     "@mantine/carousel": "^7.11.2",
     "@mantine/core": "^7.11.2",
     "@mantine/form": "^7.11.2",
@@ -23,6 +23,7 @@
     "js-cookie": "^3.0.5",
     "next": "14.2.5",
     "nextjs-toploader": "^1.6.12",
+    "openai": "3.2.1",
     "openai-edge": "^1.2.2",
     "react": "^18",
     "react-dom": "^18",
@@ -32,6 +33,7 @@
     "sharp": "^0.33.4"
   },
   "devDependencies": {
+    "@types/cookie": "^0.6.0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",

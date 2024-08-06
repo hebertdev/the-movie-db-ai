@@ -4,6 +4,7 @@ import { useState } from "react";
 
 //helpers
 import { setToken } from "helpers/auth";
+
 //mantineui
 import { notifications } from "@mantine/notifications";
 
@@ -12,7 +13,6 @@ import { useForm } from "@mantine/form";
 import {
   TextInput,
   PasswordInput,
-  Text,
   Paper,
   Group,
   PaperProps,

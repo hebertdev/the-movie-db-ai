@@ -16,6 +16,7 @@ import { UserContextProvider } from "contexts/UserContext";
 //styles
 import "./globals.css";
 import { Footer } from "components/Footer";
+import { InputOpenAI } from "components/InputOpenAI";
 
 export const metadata = {
   title: "TheMovieDB AI | Hebertdev",
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: any }) {
               <Header />
               {children}
               <Footer />
+              <InputOpenAI />
             </>
           </UserContextProvider>
         </MantineProvider>

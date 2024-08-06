@@ -1,13 +1,18 @@
 "use server";
 
 import { generateObject } from "ai";
-import { openai } from "@ai-sdk/openai";
+import { createOpenAI } from "@ai-sdk/openai";
 import { z } from "zod";
 
-export async function getMoviesAI(input: string) {
+export async function getMoviesAI(input: string, apiKey: string) {
+  const openAIKey = apiKey;
+  const openaiInstance = createOpenAI({
+    apiKey: openAIKey,
+  });
+
   try {
     const { object: result } = await generateObject({
-      model: openai("gpt-4o"),
+      model: openaiInstance("gpt-4o"),
       system: `
       Tu nombre es FlixBot y eres un experto en recomendaciones de películas y series de televisión. Tu misión es proporcionar recomendaciones precisas basadas en las preferencias y gustos expresados por los usuarios. Asegúrate de seguir estas directrices:
       1-Mejora el texto del usuario para hacerlo más detallado y preciso.

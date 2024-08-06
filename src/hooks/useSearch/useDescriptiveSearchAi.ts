@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Message, continueConversation } from "app/generate_chat";
 import { searchMovieAPI, searchTvAPI } from "services/themoviedb";
 import { Movie } from "interfaces/themoviedb";
+import { notifications } from "@mantine/notifications";
+import { getTokenOpenai } from "helpers/openai";
 
 export interface ModifiedMessage {
   role: "user" | "assistant";
@@ -22,6 +24,14 @@ export function useDescriptiveSearchAi() {
   };
 
   const handleSubmitChat = async () => {
+    if (!getTokenOpenai()) {
+      notifications.show({
+        title: "Error",
+        message: `API Key de OpenAI es requerida`,
+        color: "red",
+      });
+      return;
+    }
     if (loadingDescriptiveSearch) return;
     if (descriptiveSearchText.length <= 3) return;
     let message = descriptiveSearchText;
@@ -40,12 +50,10 @@ export function useDescriptiveSearchAi() {
     try {
       setLoadingDescriptiveSearch(true);
 
-      const { messages } = await continueConversation([
-        ...conversation,
-        { role: "user", content: message },
-      ]);
-
-      console.log(messages);
+      const { messages } = await continueConversation(
+        [...conversation, { role: "user", content: message }],
+        getTokenOpenai()!
+      );
 
       setConversation(messages);
       if (messages[messages.length - 1].role === "assistant") {
@@ -114,7 +122,11 @@ export function useDescriptiveSearchAi() {
 
       setDescriptiveSearchText("");
     } catch (error) {
-      console.log(error);
+      notifications.show({
+        title: "Error",
+        message: `API Key de OpenAI es requerida`,
+        color: "red",
+      });
     } finally {
       setLoadingDescriptiveSearch(false);
     }

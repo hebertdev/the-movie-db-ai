@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { getMoviesAI } from "../../app/actions";
+import { getTokenOpenai } from "helpers/openai";
 
 //services
 import { searchMovieAPI, searchTvAPI } from "services/themoviedb/movies";
 import { Movie } from "interfaces/themoviedb";
+import { notifications } from "@mantine/notifications";
 
 export function useRecommendationAi() {
   const [_, setAiResponse] = useState<{
@@ -25,13 +27,22 @@ export function useRecommendationAi() {
   };
 
   const handleGenerate = async () => {
+    if (!getTokenOpenai()) {
+      notifications.show({
+        title: "Error",
+        message: `API Key de OpenAI es requerida`,
+        color: "red",
+      });
+      return;
+    }
+
     setAiResponse(null);
-    if (searchText.length <= 10) return;
+    if (searchText.length <= 3) return;
     if (searchText.length > 120) return;
 
     try {
       setLoading(true);
-      const { result } = await getMoviesAI(searchText);
+      const { result } = await getMoviesAI(searchText, getTokenOpenai()!);
       setAiResponse(result);
       setModifiedAiResponse({ ...result, movies: [] });
       console.log(result);
@@ -82,7 +93,11 @@ export function useRecommendationAi() {
       setLoading(false);
       setSearchText("");
     } catch (error) {
-      console.log(error);
+      notifications.show({
+        title: "Error",
+        message: `API Key de OpenAI es requerida`,
+        color: "red",
+      });
       setLoading(false);
     }
   };
