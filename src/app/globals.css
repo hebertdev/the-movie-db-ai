@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+*::-webkit-scrollbar {
+  width: 12px; /* Tamaño del scroll en vertical */
+  height: 12px; /* Tamaño del scroll en horizontal */
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.575); /* color del scroll */
+}
+
+@import "@mantine/carousel/styles.css";
+@import "@mantine/notifications/styles.css";
+
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.title {
+  text-align: center;
+  font-size: 45px;
+  line-height: 45px;
+  margin-bottom: 40px;
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  @media screen and (max-width: 768px) {
+    font-size: 35px;
+    line-height: 35px;
+    margin-bottom: 30px;
+  }
+}

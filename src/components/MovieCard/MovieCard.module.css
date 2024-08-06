@@ -1,0 +1,13 @@
+.liked_button_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn_heart {
+  margin: 5px;
+}
