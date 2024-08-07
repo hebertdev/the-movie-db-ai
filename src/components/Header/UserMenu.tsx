@@ -23,10 +23,12 @@ import classes from "./UserMenu.module.css";
 import { useUserContext } from "hooks/useUserContext";
 import { urlImageProfile } from "helpers/images";
 import Link from "next/link";
+import { useMediaQuery } from "@mantine/hooks";
 
 export function UserMenu() {
   const { user, logout } = useUserContext();
   const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const [userMenuOpened, setUserMenuOpened] = useState(false);
   return (
     <Menu
@@ -38,25 +40,36 @@ export function UserMenu() {
       withinPortal
     >
       <Menu.Target>
-        <UnstyledButton
-          className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
-        >
-          <Group gap={7}>
-            <Avatar
-              src={urlImageProfile(user?.avatar?.tmdb?.avatar_path!)}
-              alt={user?.username}
-              radius="xl"
-              size={20}
-            />
-            <Text fw={500} size="sm" lh={1} mr={3}>
-              {user?.username}
-            </Text>
-            <IconChevronDown
-              style={{ width: rem(12), height: rem(12) }}
-              stroke={1.5}
-            />
-          </Group>
-        </UnstyledButton>
+        {mobile ? (
+          <Avatar
+            src={urlImageProfile(user?.avatar?.tmdb?.avatar_path!)}
+            alt={user?.username}
+            radius="xl"
+            size={"sm"}
+          />
+        ) : (
+          <UnstyledButton
+            className={cx(classes.user, {
+              [classes.userActive]: userMenuOpened,
+            })}
+          >
+            <Group gap={7}>
+              <Avatar
+                src={urlImageProfile(user?.avatar?.tmdb?.avatar_path!)}
+                alt={user?.username}
+                radius="xl"
+                size={20}
+              />
+              <Text fw={500} size="sm" lh={1} mr={3}>
+                {user?.username}
+              </Text>
+              <IconChevronDown
+                style={{ width: rem(12), height: rem(12) }}
+                stroke={1.5}
+              />
+            </Group>
+          </UnstyledButton>
+        )}
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Item

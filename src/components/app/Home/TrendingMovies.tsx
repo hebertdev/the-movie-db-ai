@@ -46,7 +46,12 @@ export function TrendingMovies() {
         </Tabs.List>
 
         <Tabs.Panel value="day">
-          <SimpleGrid cols={5} spacing="xl" style={{ marginTop: "20px" }}>
+          <SimpleGrid
+            cols={{ base: 2, sm: 3, md: 4, lg: 5 }}
+            spacing={{ base: 10, sm: "xl" }}
+            verticalSpacing={{ base: "md", sm: "xl" }}
+            style={{ marginTop: "20px" }}
+          >
             {loading && (
               <>
                 {[...Array(10)].map((_, index) => (
@@ -60,7 +65,12 @@ export function TrendingMovies() {
           </SimpleGrid>
         </Tabs.Panel>
         <Tabs.Panel value="week">
-          <SimpleGrid cols={5} spacing="xl" style={{ marginTop: "20px" }}>
+          <SimpleGrid
+            cols={{ base: 2, sm: 3, md: 4, lg: 5 }}
+            spacing={{ base: 10, sm: "xl" }}
+            verticalSpacing={{ base: "md", sm: "xl" }}
+            style={{ marginTop: "20px" }}
+          >
             {loading && (
               <>
                 {[...Array(10)].map((_, index) => (

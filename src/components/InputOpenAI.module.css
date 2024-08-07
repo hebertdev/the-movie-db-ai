@@ -1,2 +1,7 @@
 .container_form {
+  background: var(--mantine-color-body);
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid red;
+  border-radius: 10px;
 }

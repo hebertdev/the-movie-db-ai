@@ -16,7 +16,15 @@ import {
 import { SvgAi } from "./SvgAi";
 
 //mantineui
-import { Box, Container, Button, SegmentedControl } from "@mantine/core";
+import {
+  Box,
+  Container,
+  Button,
+  SegmentedControl,
+  useMantineTheme,
+} from "@mantine/core";
+
+import { useMediaQuery } from "@mantine/hooks";
 
 //styles
 import classes from "./Banner.module.css";
@@ -25,6 +33,9 @@ import { ButtonModalDescriptiveSearch } from "./ButtonModalDescriptiveSearch";
 
 export function Banner() {
   const [segment, setSegment] = useState<string>("1");
+
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
   useEffect(() => {
     const savedSegment = getValue();
@@ -75,7 +86,7 @@ export function Banner() {
     event.preventDefault();
     if (segment === "1") {
       handleGenerate();
-    } else if (segment === "2") {
+    } else if (segment === "3") {
       handleSearch();
     }
   };
@@ -122,6 +133,7 @@ export function Banner() {
                     },
                     { label: "Busqueda normal", value: "3" },
                   ]}
+                  size={mobile ? "xs" : "sm"}
                 />
                 <p className={classes.title_ai + " title"}>
                   {segment === "1"

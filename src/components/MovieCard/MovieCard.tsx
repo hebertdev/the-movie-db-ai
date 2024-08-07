@@ -25,6 +25,7 @@ import {
   Pill,
   ActionIcon,
   Box,
+  useMantineTheme,
 } from "@mantine/core";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 
@@ -32,6 +33,7 @@ import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import classes from "./MovieCard.module.css";
 import { useUserContext } from "hooks/useUserContext";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface MovieCardProps {
   movie: Movie;
@@ -39,6 +41,9 @@ interface MovieCardProps {
 }
 
 export function MovieCard({ movie, trailer = false }: MovieCardProps) {
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+
   const [typeMedia, setTypeMedia] = useState<"serie" | "movie">("movie");
   const { user } = useUserContext();
   useEffect(() => {
@@ -58,13 +63,13 @@ export function MovieCard({ movie, trailer = false }: MovieCardProps) {
     >
       <Card.Section
         component={Link}
-        href={`/movies/${slugGenerator(
-          movie.name ? movie.name : movie.title
-        )}/${movie.id}`}
+        href={`${
+          typeMedia === "movie" ? `/movies/` : `/series/`
+        }${slugGenerator(movie.name ? movie.name : movie.title)}/${movie.id}`}
       >
         <Image
           src={movie.poster_path ? urlImageW300(movie.poster_path) : null}
-          h={350}
+          h={mobile ? "320px" : "350px"}
           alt={movie.name ? movie.name : movie.title}
           fallbackSrc={`https://placehold.co/600x400?text=${
             movie.name ? movie.name[0] : movie.title[0]

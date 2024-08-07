@@ -42,7 +42,11 @@ export function MovieGenre() {
       <Title order={2} className="title" style={{ marginTop: "20px" }}>
         Categorías
       </Title>
-      <SimpleGrid cols={5}>
+      <SimpleGrid
+        cols={{ base: 2, sm: 3, md: 4, lg: 5 }}
+        spacing={{ base: 10, sm: "xl" }}
+        verticalSpacing={{ base: "md", sm: "xl" }}
+      >
         {genres.map((genre) => (
           <GenreCard key={genre.id} genre={genre} />
         ))}
@@ -83,14 +87,14 @@ function GenreCard({ genre }: GenreCardProps) {
         <Avatar radius="xl">{genre.name[0]}</Avatar>
 
         <div style={{ flex: 1 }}>
-          <Text size="sm" fw={500}>
+          <Text size="xs" fw={400}>
             {genre.name}
           </Text>
         </div>
 
         {/* Supongo que IconChevronRight es un componente de ícono que se importa */}
         <IconChevronRight
-          style={{ width: rem(14), height: rem(14) }}
+          style={{ width: rem(12), height: rem(12) }}
           stroke={1.5}
         />
       </Group>

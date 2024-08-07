@@ -39,7 +39,12 @@ export function Results({ movies, tvs }: TrendingMoviesProps) {
         </Tabs.List>
 
         <Tabs.Panel value="movies">
-          <SimpleGrid cols={5} spacing="xl" style={{ marginTop: "20px" }}>
+          <SimpleGrid
+            cols={{ base: 2, sm: 3, md: 4, lg: 5 }}
+            spacing={{ base: 10, sm: "xl" }}
+            verticalSpacing={{ base: "md", sm: "xl" }}
+            style={{ marginTop: "20px" }}
+          >
             {movies?.length != 0 ? (
               <>
                 {movies.map((movie) => (
@@ -52,7 +57,12 @@ export function Results({ movies, tvs }: TrendingMoviesProps) {
           </SimpleGrid>
         </Tabs.Panel>
         <Tabs.Panel value="tvs">
-          <SimpleGrid cols={5} spacing="xl" style={{ marginTop: "20px" }}>
+          <SimpleGrid
+            cols={{ base: 2, sm: 3, md: 4, lg: 5 }}
+            spacing={{ base: 10, sm: "xl" }}
+            verticalSpacing={{ base: "md", sm: "xl" }}
+            style={{ marginTop: "20px" }}
+          >
             {tvs?.length != 0 ? (
               <>
                 {tvs.map((movie) => (

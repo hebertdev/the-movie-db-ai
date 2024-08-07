@@ -53,7 +53,12 @@ export function ButtonModalRecommendation({
             </small>
           </small>
         </span>
-        <SimpleGrid cols={5} spacing="xl" style={{ marginTop: "20px" }}>
+        <SimpleGrid
+          cols={{ base: 2, sm: 3, md: 4, lg: 5 }}
+          spacing={{ base: 10, sm: "xl" }}
+          verticalSpacing={{ base: "md", sm: "xl" }}
+          style={{ marginTop: "20px" }}
+        >
           {modifiedAiResponse?.movies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} trailer={true} />
           ))}

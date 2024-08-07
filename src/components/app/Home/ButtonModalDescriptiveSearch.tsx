@@ -45,6 +45,11 @@ export function ButtonModalDescriptiveSearch({
     close();
   };
 
+  const handleSubmitFormChat = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleSubmitChat();
+  };
+
   return (
     <>
       <Button onClick={handleSubmitChat} loading={loadingDescriptiveSearch}>
@@ -77,7 +82,11 @@ export function ButtonModalDescriptiveSearch({
               </Box>
               <Box className={classes.estorbo}></Box>
               <Box className={classes.form}>
-                <Box className={classes.banner_form} component="form">
+                <Box
+                  className={classes.banner_form}
+                  component="form"
+                  onSubmit={handleSubmitFormChat}
+                >
                   <input
                     type="text"
                     value={descriptiveSearchText}
@@ -93,7 +102,7 @@ export function ButtonModalDescriptiveSearch({
                     radius="lg"
                     aria-label="send message"
                     size={"lg"}
-                    onClick={handleSubmitChat}
+                    type="submit"
                     loading={loadingDescriptiveSearch}
                   >
                     <IconSend

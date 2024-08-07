@@ -4,8 +4,8 @@
 import YouTube from "react-youtube";
 
 //mantineui
-import { Button, Modal } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Button, Modal, useMantineTheme } from "@mantine/core";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { IconPlayerPlay } from "@tabler/icons-react";
 import { Movie, MovieDetailsData } from "interfaces/themoviedb";
 import { useState } from "react";
@@ -16,6 +16,8 @@ interface ButtonVideoPlayerProps {
 }
 
 export function ButtonVideoPlayer({ movie }: ButtonVideoPlayerProps) {
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const [opened, { open, close }] = useDisclosure(false);
   const [loading, setLoading] = useState(false);
   const [trailer, setTrailer] = useState<any>(null);
@@ -75,6 +77,7 @@ export function ButtonVideoPlayer({ movie }: ButtonVideoPlayerProps) {
         leftSection={<IconPlayerPlay />}
         onClick={handleGetTrailer}
         loading={loading}
+        size={mobile ? "xs" : "sm"}
       >
         Ver trailer
       </Button>

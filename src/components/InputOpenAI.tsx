@@ -42,6 +42,7 @@ export function InputOpenAI() {
           message: `API Key de OpenAI es inválida`,
           color: "red",
         });
+        setApiKey("");
         deleteTokenOpenai();
         setLoading(false);
 
@@ -54,6 +55,7 @@ export function InputOpenAI() {
           message: `API Key de OpenAI verificada con éxito`,
           color: "green",
         });
+        setApiKey("");
         document.location.reload();
       }
 
@@ -64,6 +66,7 @@ export function InputOpenAI() {
         message: `API Key de OpenAI es inválida`,
         color: "red",
       });
+      setApiKey("");
       deleteTokenOpenai();
       setLoading(false);
     }

@@ -3,13 +3,13 @@ import { Box, Container, Image, Title, Text, Rating } from "@mantine/core";
 
 //styles
 import classes from "./Banner.module.css";
-import { MovieDetailsData } from "interfaces/themoviedb";
+import { TvDetailsData } from "interfaces/themoviedb";
 import { urlImageW300, urlImageW1900 } from "helpers/images";
 import { ButtonVideoPlayer } from "components/MovieCard";
 
 //interfaces
 interface BannerProps {
-  movie: MovieDetailsData;
+  movie: TvDetailsData;
 }
 
 export function Banner({ movie }: BannerProps) {
@@ -23,10 +23,10 @@ export function Banner({ movie }: BannerProps) {
       >
         <Box className={classes.banner__container}>
           <Container size={"xl"} className={classes.container}>
-            <Box className={classes.container_principal_image}>
+            <Box>
               <Image
                 src={urlImageW300(movie?.poster_path)}
-                alt={movie.title}
+                alt={movie.name}
                 className={classes.banner__image}
               ></Image>
             </Box>
@@ -34,12 +34,12 @@ export function Banner({ movie }: BannerProps) {
               <Box className={classes.banner__content} mb={"md"}>
                 <Box className={classes.banner__title}>
                   <Title order={1} c={"white"}>
-                    {movie.title}
+                    {movie.name}
                   </Title>
                 </Box>
                 <Box>
                   <Box className={classes.banner_info_date}>
-                    {movie.adult ? "+18" : "+13"} | {movie.release_date} |{" "}
+                    {movie.adult ? "+18" : "+13"} | {movie.first_air_date} |{" "}
                     {movie.genres.map((gen, index) => (
                       <span key={gen.id}>
                         {gen.name}

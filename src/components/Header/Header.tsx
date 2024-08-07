@@ -7,18 +7,13 @@ import Link from "next/link";
 //contexts
 import { useUserContext } from "hooks/useUserContext";
 
-//helpers
-import { getToken } from "helpers/auth";
-
 //mantineui
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 
 import {
   Group,
   Button,
-  UnstyledButton,
   Divider,
-  Center,
   Box,
   Burger,
   Drawer,
@@ -29,7 +24,7 @@ import {
   Text,
 } from "@mantine/core";
 
-import { IconChevronDown, IconSparkles } from "@tabler/icons-react";
+import { IconSparkles } from "@tabler/icons-react";
 
 //styles
 import classes from "./Header.module.css";
@@ -41,9 +36,10 @@ import { ColorSchemeToggle } from "components/ColorSchemeToggle/ColorSchemeToggl
 export function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
-  const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
-  const theme = useMantineTheme();
   const [scrolling, setScrolling] = useState(false);
+
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,12 +76,17 @@ export function Header() {
               </Button>
 
               {user ? <UserMenu /> : <ButtonLogin />}
+              <Burger opened={drawerOpened} onClick={toggleDrawer} />
             </Group>
-            <Burger
-              opened={drawerOpened}
-              onClick={toggleDrawer}
-              hiddenFrom="sm"
-            />
+
+            <Group hiddenFrom="sm">
+              {user ? <UserMenu /> : <ButtonLogin />}
+              <Burger
+                opened={drawerOpened}
+                onClick={toggleDrawer}
+                hiddenFrom="sm"
+              />
+            </Group>
           </Group>
         </Container>
       </header>
@@ -93,11 +94,11 @@ export function Header() {
       <Drawer
         opened={drawerOpened}
         onClose={closeDrawer}
-        size="100%"
+        size={mobile ? "100%" : "sm"}
         padding="md"
         title="Menu"
-        hiddenFrom="sm"
         zIndex={1000000}
+        position="right"
       >
         <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
           <Divider my="sm" />
@@ -106,28 +107,15 @@ export function Header() {
             Home
           </Link>
 
-          <Link
-            href="/portfolio"
-            className={classes.link}
-            onClick={toggleDrawer}
-          >
-            Portafolio
-          </Link>
-          <Link href="/blog" className={classes.link} onClick={toggleDrawer}>
-            Blog
-          </Link>
-
-          <UnstyledButton className={classes.link} onClick={toggleLinks}>
-            <Center inline>
-              <Box component="span" mr={5}>
-                Apps
-              </Box>
-              <IconChevronDown
-                style={{ width: rem(16), height: rem(16) }}
-                color={theme.colors.blue[6]}
-              />
-            </Center>
-          </UnstyledButton>
+          {user && (
+            <Link
+              href="/favorites"
+              className={classes.link}
+              onClick={toggleDrawer}
+            >
+              Favoritos
+            </Link>
+          )}
 
           <Divider my="sm" />
           <ColorSchemeToggle />

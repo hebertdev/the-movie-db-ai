@@ -1,4 +1,5 @@
 import { axiosInstance } from "helpers/axios";
+import { TvDetailsData } from "interfaces/themoviedb";
 
 //interfaces
 import {
@@ -50,7 +51,7 @@ export async function getMovieDetailsAPI(id: string) {
 }
 
 export async function getTvDetailsAPI(id: string) {
-  const { data } = await axiosInstance.get<any>(
+  const { data } = await axiosInstance.get<TvDetailsData>(
     `/tv/${id}?language=es&append_to_response=videos`
   );
   return data;
