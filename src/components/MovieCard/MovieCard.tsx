@@ -89,6 +89,7 @@ export function MovieCard({ movie, trailer = false }: MovieCardProps) {
           defaultValue={0}
           value={movie.vote_average}
           mt={"1rem"}
+          size={"xs"}
         />
       </Center>
 

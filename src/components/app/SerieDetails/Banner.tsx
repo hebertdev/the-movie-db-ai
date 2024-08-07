@@ -23,7 +23,7 @@ export function Banner({ movie }: BannerProps) {
       >
         <Box className={classes.banner__container}>
           <Container size={"xl"} className={classes.container}>
-            <Box>
+            <Box className={classes.container_principal_image}>
               <Image
                 src={urlImageW300(movie?.poster_path)}
                 alt={movie.name}

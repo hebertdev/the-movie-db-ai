@@ -85,7 +85,7 @@ export function ButtonVideoPlayer({ movie }: ButtonVideoPlayerProps) {
         opened={opened}
         onClose={close}
         title="Trailer"
-        size={"60%"}
+        size={mobile ? "100%" : "60%"}
         centered
       >
         {trailer ? (
@@ -93,7 +93,7 @@ export function ButtonVideoPlayer({ movie }: ButtonVideoPlayerProps) {
             videoId={trailer.key}
             opts={{
               width: "100%",
-              height: "500",
+              height: mobile ? "200" : "450",
               playerVars: {
                 autoplay: 1,
                 controls: 1,

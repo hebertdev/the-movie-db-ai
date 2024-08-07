@@ -1,10 +1,10 @@
 "use client";
 
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 //mantineui
-import { Modal, Button, Box, ActionIcon } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Modal, Button, Box, ActionIcon, useMantineTheme } from "@mantine/core";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 
 //styles
 import classes from "./ButtonModalDescriptiveSearch.module.css";
@@ -33,6 +33,9 @@ export function ButtonModalDescriptiveSearch({
   handleClearConversation,
 }: ButtonModalDescriptiveSearchProps) {
   const [opened, { open, close }] = useDisclosure(false);
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
     if (modifiedConversation.length > 0) {
@@ -50,6 +53,20 @@ export function ButtonModalDescriptiveSearch({
     handleSubmitChat();
   };
 
+  useEffect(() => {
+    if (modifiedConversation.length > 0) {
+      let lastMessage = modifiedConversation[modifiedConversation.length - 1];
+      console.log(lastMessage);
+
+      if (lastMessage.role === "assistant") {
+        let content = JSON.parse(lastMessage.content);
+        if (content.success) {
+          setIsFinished(true);
+        }
+      }
+    }
+  }, [modifiedConversation]);
+
   return (
     <>
       <Button onClick={handleSubmitChat} loading={loadingDescriptiveSearch}>
@@ -58,7 +75,7 @@ export function ButtonModalDescriptiveSearch({
       <Modal.Root
         opened={opened}
         onClose={handleCloseModal}
-        size={"xl"}
+        size={mobile ? "100%" : "xl"}
         centered
       >
         <Modal.Overlay />
@@ -82,36 +99,60 @@ export function ButtonModalDescriptiveSearch({
               </Box>
               <Box className={classes.estorbo}></Box>
               <Box className={classes.form}>
-                <Box
-                  className={classes.banner_form}
-                  component="form"
-                  onSubmit={handleSubmitFormChat}
-                >
-                  <input
-                    type="text"
-                    value={descriptiveSearchText}
-                    onChange={(event) => {
-                      handleSetDescriptiveSearchText(event.target.value);
-                    }}
-                    className={classes.input_search}
-                    placeholder="Escribe algo..."
-                    disabled={loadingDescriptiveSearch}
-                  />
-                  <ActionIcon
-                    variant="subtle"
-                    radius="lg"
-                    aria-label="send message"
-                    size={"lg"}
-                    type="submit"
-                    loading={loadingDescriptiveSearch}
+                {isFinished ? (
+                  <>
+                    <Box
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                      }}
+                    >
+                      <Button w={"60%"} onClick={handleCloseModal}>
+                        Cerrar conversación
+                      </Button>
+                      <Button
+                        w={"40%"}
+                        variant="outline"
+                        onClick={() => setIsFinished(false)}
+                      >
+                        Continuar
+                      </Button>
+                    </Box>
+                  </>
+                ) : (
+                  <Box
+                    className={classes.banner_form}
+                    component="form"
+                    onSubmit={handleSubmitFormChat}
                   >
-                    <IconSend
-                      style={{ width: "60%", height: "60%" }}
-                      stroke={1.5}
-                      type="submit"
+                    <input
+                      type="text"
+                      value={descriptiveSearchText}
+                      onChange={(event) => {
+                        handleSetDescriptiveSearchText(event.target.value);
+                      }}
+                      className={classes.input_search}
+                      placeholder="Escribe algo..."
+                      disabled={loadingDescriptiveSearch}
                     />
-                  </ActionIcon>
-                </Box>
+                    <ActionIcon
+                      variant="subtle"
+                      radius="lg"
+                      aria-label="send message"
+                      size={"lg"}
+                      type="submit"
+                      loading={loadingDescriptiveSearch}
+                    >
+                      <IconSend
+                        style={{ width: "60%", height: "60%" }}
+                        stroke={1.5}
+                        type="submit"
+                      />
+                    </ActionIcon>
+                  </Box>
+                )}
               </Box>
             </Box>
           </Modal.Body>

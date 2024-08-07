@@ -45,3 +45,10 @@
 .banner_info_date {
   color: white;
 }
+
+.container_principal_image {
+  display: block;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}

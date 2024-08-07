@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { useDisclosure } from "@mantine/hooks";
-import { Modal, Button, SimpleGrid } from "@mantine/core";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { Modal, Button, SimpleGrid, useMantineTheme } from "@mantine/core";
 import { MovieCard } from "components/MovieCard/MovieCard";
 
 //interface
@@ -25,6 +25,8 @@ export function ButtonModalRecommendation({
   handleClearRecommendation,
 }: ButtonModalRecommendationProps) {
   const [opened, { open, close }] = useDisclosure(false);
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
   useEffect(() => {
     if (modifiedAiResponse) {
@@ -43,7 +45,7 @@ export function ButtonModalRecommendation({
         opened={opened}
         onClose={handleCloseModal}
         title={"✨" + modifiedAiResponse?.ai_message}
-        size={"90%"}
+        size={mobile ? "100%" : "90%"}
       >
         <span>
           <small>
