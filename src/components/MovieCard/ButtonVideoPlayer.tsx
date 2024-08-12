@@ -31,14 +31,12 @@ export function ButtonVideoPlayer({ movie }: ButtonVideoPlayerProps) {
         const trailer = data.videos.results.filter(
           (video: any) => video.type === "Trailer"
         );
-        console.log(trailer);
         setTrailer(trailer[0]);
       }
 
       open();
       setLoading(false);
     } catch (e) {
-      console.log(e);
       setLoading(false);
     }
   };

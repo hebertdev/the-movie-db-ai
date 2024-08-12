@@ -29,6 +29,34 @@ export async function getTrendingMoviesAPI(validTime: "day" | "week") {
   return data;
 }
 
+export async function getMoviesAPI() {
+  const { data } = await axiosInstance.get<PopularData>(
+    `/discover/movie?language=es&page=1`
+  );
+  return data;
+}
+
+export async function geTvAPI() {
+  const { data } = await axiosInstance.get<PopularData>(
+    `/discover/tv?language=es&page=1`
+  );
+  return data;
+}
+
+export async function getRelatedMoviesAPI(id: string) {
+  const { data } = await axiosInstance.get<PopularData>(
+    `/movie/${id}/similar?language=es`
+  );
+  return data;
+}
+
+export async function getRelatedTvAPI(id: string) {
+  const { data } = await axiosInstance.get<PopularData>(
+    `/tv/${id}/similar?language=es`
+  );
+  return data;
+}
+
 export async function searchMovieAPI(query: string) {
   const { data } = await axiosInstance.get<PopularData>(
     `/search/movie?query=${query}&language=es`

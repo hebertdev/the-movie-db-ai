@@ -1,7 +1,7 @@
 //services
 import { getTvDetailsAPI } from "services/themoviedb";
 
-import { Banner } from "components/app/SerieDetails";
+import { Banner, RelatedSeries } from "components/app/SerieDetails";
 
 interface SerieDetailsProps {
   params: { id: string };
@@ -15,6 +15,7 @@ export default async function SerieDetails({ params }: SerieDetailsProps) {
     <>
       <div style={{ height: "65px" }} />
       <Banner movie={data} />
+      <RelatedSeries movie={data} />
     </>
   );
 }

@@ -2,14 +2,13 @@
 
 import { generateText } from "ai";
 import { createOpenAI, openai } from "@ai-sdk/openai";
-import { getTokenOpenai } from "helpers/openai";
 
 export interface Message {
   role: "user" | "assistant";
   content: string;
 }
 
-export async function continueConversation(history: Message[], apiKey: string) {
+export async function chatBot(history: Message[], apiKey: string) {
   "use server";
 
   const openAIKey = apiKey;

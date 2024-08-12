@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getMoviesAI } from "../../app/actions";
+import { movieRecommendationsAI } from "app/actions";
 import { getTokenOpenai } from "helpers/openai";
 
 //services
@@ -42,10 +42,12 @@ export function useRecommendationAi() {
 
     try {
       setLoading(true);
-      const { result } = await getMoviesAI(searchText, getTokenOpenai()!);
+      const { result } = await movieRecommendationsAI(
+        searchText,
+        getTokenOpenai()!
+      );
       setAiResponse(result);
       setModifiedAiResponse({ ...result, movies: [] });
-      console.log(result);
 
       if (result.error == true) {
         setLoading(false);

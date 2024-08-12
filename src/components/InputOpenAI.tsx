@@ -35,7 +35,6 @@ export function InputOpenAI() {
     try {
       setLoading(true);
       const data = await verifyToken(apiKey);
-      console.log(data);
       if (data?.status === 401) {
         notifications.show({
           title: "Error",
@@ -45,7 +44,6 @@ export function InputOpenAI() {
         setApiKey("");
         deleteTokenOpenai();
         setLoading(false);
-
         return;
       }
       if (data?.status === 200) {
@@ -58,7 +56,6 @@ export function InputOpenAI() {
         setApiKey("");
         document.location.reload();
       }
-
       setLoading(false);
     } catch (error) {
       notifications.show({

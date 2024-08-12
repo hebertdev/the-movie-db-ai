@@ -67,8 +67,7 @@ export function MessageLeft({ message }: MessageProps) {
                 slideSize={{ base: "10%", xs: "50%", sm: "30%", md: "20%" }}
                 slideGap={{ base: rem(10), sm: "xl" }}
                 align="start"
-                slidesToScroll={mobile ? 1 : 1}
-                loop
+                slidesToScroll={mobile ? 1 : 2}
               >
                 <>
                   {content_object.movies.map((movie: Movie) => (

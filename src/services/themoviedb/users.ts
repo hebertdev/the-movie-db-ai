@@ -45,7 +45,12 @@ export async function newSessionAuthenticationData(token: string) {
   return data;
 }
 
-export async function getUserData() {
+export async function getUserDataAPI() {
   const { data } = await axiosInstance.get<UserData>(`/account`);
+  return data;
+}
+
+export async function deleteSessionAPI() {
+  const { data } = await axiosInstance.delete(`/authentication/session`);
   return data;
 }

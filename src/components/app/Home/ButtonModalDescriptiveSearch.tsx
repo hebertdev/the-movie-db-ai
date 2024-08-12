@@ -56,8 +56,6 @@ export function ButtonModalDescriptiveSearch({
   useEffect(() => {
     if (modifiedConversation.length > 0) {
       let lastMessage = modifiedConversation[modifiedConversation.length - 1];
-      console.log(lastMessage);
-
       if (lastMessage.role === "assistant") {
         let content = JSON.parse(lastMessage.content);
         if (content.success) {

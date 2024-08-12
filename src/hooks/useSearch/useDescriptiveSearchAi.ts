@@ -1,6 +1,6 @@
 import { useState } from "react";
 //actions
-import { Message, continueConversation } from "app/generate_chat";
+import { Message, chatBot } from "app/actions";
 import { searchMovieAPI, searchTvAPI } from "services/themoviedb";
 import { Movie } from "interfaces/themoviedb";
 import { notifications } from "@mantine/notifications";
@@ -50,7 +50,7 @@ export function useDescriptiveSearchAi() {
     try {
       setLoadingDescriptiveSearch(true);
 
-      const { messages } = await continueConversation(
+      const { messages } = await chatBot(
         [...conversation, { role: "user", content: message }],
         getTokenOpenai()!
       );

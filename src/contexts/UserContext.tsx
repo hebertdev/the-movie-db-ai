@@ -6,7 +6,7 @@ import { useState, ReactNode, createContext, useEffect } from "react";
 import { deleteToken, getToken } from "helpers/auth";
 
 //services
-import { getUserData } from "services/themoviedb/users";
+import { getUserDataAPI, deleteSessionAPI } from "services/themoviedb/users";
 
 //interfaces
 import { Movie, UserData } from "interfaces/themoviedb";
@@ -35,9 +35,14 @@ export function UserContextProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState<UserData>();
   const [loadingUser, setLoadingUser] = useState(true);
 
-  const logout = () => {
-    deleteToken();
-    window.location.href = "/";
+  const logout = async () => {
+    try {
+      await deleteSessionAPI();
+      deleteToken();
+      window.location.href = "/";
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const toggleLoadingUser = (value: boolean) => {
@@ -48,14 +53,14 @@ export function UserContextProvider({ children }: UserProviderProps) {
     if (!getToken()) return;
     try {
       toggleLoadingUser(true);
-      const data = await getUserData();
+      const data = await getUserDataAPI();
       setUser(data);
       toggleLoadingUser(false);
     } catch (error) {
       toggleLoadingUser(false);
       notifications.show({
         title: "Error",
-        message: `Ocurrió un error al conectarte con infojobs`,
+        message: `Ocurrió un error al conectarte con The Movie DB`,
         color: "red",
       });
     }

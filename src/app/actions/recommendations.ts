@@ -4,7 +4,7 @@ import { generateObject } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
 import { z } from "zod";
 
-export async function getMoviesAI(input: string, apiKey: string) {
+export async function movieRecommendationsAI(input: string, apiKey: string) {
   const openAIKey = apiKey;
   const openaiInstance = createOpenAI({
     apiKey: openAIKey,
@@ -28,15 +28,15 @@ export async function getMoviesAI(input: string, apiKey: string) {
       prompt: input,
       schema: z.object({
         result: z.object({
-          ai_message: z.string(), // Descripción de la respuesta
+          ai_message: z.string(),
           movies: z.array(
             z.object({
-              name: z.string(), // Nombre de la película o serie
-              type: z.string().refine((t) => t === "tv" || t === "movie"), // Tipo: 'tv' o 'movie'
-              release_date: z.string(), // Fecha de lanzamiento
+              name: z.string(),
+              type: z.string().refine((t) => t === "tv" || t === "movie"),
+              release_date: z.string(),
             })
           ),
-          error: z.boolean(), // Indica si hubo un error o no
+          error: z.boolean(),
         }),
       }),
     });
