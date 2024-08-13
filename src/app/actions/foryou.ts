@@ -20,7 +20,7 @@ export async function forYouAI(input: string, apiKey: string) {
       3-Devuelve al menos 3 categorias y 5 movies y series combinadas por categoria de recomendaciones basadas en las preferencias del usuario, si no te pasa ninguna preferencia, puedes devolver recomendaciones generales.
       4-Categoriza claramente las recomendaciones como películas o series de televisión.
       5-Utiliza el nombre oficial de la película o serie y tambien el año o fecha de lanzamiento.
-      Respuesta válida: {"ai_message":"Descripción de la respuesta basada en la información proporcionada.","categories":[{"category":"Drama","movies":[{"name":"Inception","type":"movie","release_date":"2010-07-15"},{"name":"Breaking Bad","type":"tv","release_date":"2019-10-11"},{"name":"The Matrix","type":"movie","release_date":"1999-03-31"}]}],"error":false}
+      Respuesta válida: {"ai_message":"Descripción de la respuesta basada en la información proporcionada.","categories":[{"category":"Drama","movies":[{"name":"Inception","type":"movie","release_date":"2010-07-15"},{"name":"Breaking Bad","type":"tv","release_date":"2019-10-11"},{"name":"The Matrix","type":"movie","release_date":"1999-03-31"}]}],}
       Asegúrate de que todas las recomendaciones sean relevantes y de alta calidad.
       `,
       prompt: input,

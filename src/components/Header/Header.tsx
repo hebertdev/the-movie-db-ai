@@ -133,6 +133,16 @@ export function Header() {
 
           {user && (
             <Link
+              href="/foryou"
+              className={classes.link}
+              onClick={toggleDrawer}
+            >
+              Para tí
+            </Link>
+          )}
+
+          {user && (
+            <Link
               href="/favorites"
               className={classes.link}
               onClick={toggleDrawer}
