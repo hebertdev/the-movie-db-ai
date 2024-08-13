@@ -1,15 +1,12 @@
 "use client";
 
-//servies
-import { getFavoriteMoviesAPI, getFavoriteTvAPI } from "services/themoviedb";
-
 //hooks
 import { useUserContext } from "hooks/useUserContext";
 
 import { Container, Title, Tabs, SimpleGrid } from "@mantine/core";
-import { SkeletonMovieCard, MovieCard } from "components/MovieCard";
-import { Movie } from "interfaces/themoviedb";
-import { useEffect, useState } from "react";
+import { MovieCard } from "components/MovieCard";
+
+import { useState } from "react";
 
 export function Content() {
   const [typeMedia, setTypeMedia] = useState<string | null>("movies");

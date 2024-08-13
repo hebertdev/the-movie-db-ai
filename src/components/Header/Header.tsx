@@ -32,6 +32,7 @@ import classes from "./Header.module.css";
 //assets
 import { ButtonLogin, DarkModeButton, UserMenu } from ".";
 import { ColorSchemeToggle } from "components/ColorSchemeToggle/ColorSchemeToggle";
+import { notifications } from "@mantine/notifications";
 
 export function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
@@ -71,9 +72,32 @@ export function Header() {
             <Group h="100%" gap={0} visibleFrom="sm"></Group>
             <Group visibleFrom="sm">
               <DarkModeButton />
-              <Button variant="light" leftSection={<IconSparkles />}>
-                Para tí
-              </Button>
+
+              {user ? (
+                <Button
+                  variant="light"
+                  leftSection={<IconSparkles />}
+                  component={Link}
+                  href={"/foryou"}
+                >
+                  Para tí
+                </Button>
+              ) : (
+                <Button
+                  variant="light"
+                  leftSection={<IconSparkles />}
+                  onClick={() => {
+                    notifications.show({
+                      title: "Error",
+                      message: `Inicia sesión para ver recomendaciones personalizadas.`,
+                      color: "red",
+                      position: "top-center",
+                    });
+                  }}
+                >
+                  Para tí
+                </Button>
+              )}
 
               {user ? <UserMenu /> : <ButtonLogin />}
               <Burger opened={drawerOpened} onClick={toggleDrawer} />
