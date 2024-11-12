@@ -27,25 +27,14 @@ export function useRecommendationAi() {
   };
 
   const handleGenerate = async () => {
-    if (!getTokenOpenai()) {
-      notifications.show({
-        title: "Error",
-        message: `API Key de OpenAI es requerida`,
-        color: "red",
-      });
-      return;
-    }
-
     setAiResponse(null);
     if (searchText.length <= 3) return;
     if (searchText.length > 120) return;
 
     try {
       setLoading(true);
-      const { result } = await movieRecommendationsAI(
-        searchText,
-        getTokenOpenai()!
-      );
+      const result = await movieRecommendationsAI(searchText);
+      console.log(result);
       setAiResponse(result);
       setModifiedAiResponse({ ...result, movies: [] });
 
@@ -95,11 +84,13 @@ export function useRecommendationAi() {
       setLoading(false);
       setSearchText("");
     } catch (error) {
+      console.log(error);
       notifications.show({
         title: "Error",
-        message: `API Key de OpenAI es requerida`,
+        message: `Ocurrió un error al obtener las recomendaciones xxx`,
         color: "red",
       });
+
       setLoading(false);
     }
   };

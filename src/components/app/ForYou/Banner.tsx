@@ -9,7 +9,6 @@ import { forYouAI } from "app/actions/foryou";
 import { Center, Container, SimpleGrid, Text, Title } from "@mantine/core";
 import { MovieCard, SkeletonMovieCard } from "components/MovieCard";
 import { useUserContext } from "hooks/useUserContext";
-import { getTokenOpenai } from "helpers/openai";
 import { searchMovieAPI, searchTvAPI } from "services/themoviedb";
 import { Movie } from "interfaces/themoviedb";
 
@@ -49,11 +48,7 @@ export function Banner() {
 
     try {
       setLoading(true);
-      const { result } = await forYouAI(
-        JSON.stringify(myFavorites),
-        getTokenOpenai()!
-      );
-      console.log(result);
+      const result = await forYouAI(JSON.stringify(myFavorites));
       if (result) {
         for (let i = 0; i < result.categories.length; i++) {
           let categorie = result.categories[i];

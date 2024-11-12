@@ -51,7 +51,7 @@ export function ButtonModalRecommendation({
           <small>
             <small>
               ⚠ Solo podemos ofrecerte busquedas de películas con fecha de
-              estreno hasta mediados del 2022
+              estreno hasta mediados del 2023
             </small>
           </small>
         </span>

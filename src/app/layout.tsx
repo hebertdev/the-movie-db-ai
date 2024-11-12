@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: any }) {
               <Header />
               {children}
               <Footer />
-              <InputOpenAI />
+              {/* <InputOpenAI /> */}
             </>
           </UserContextProvider>
         </MantineProvider>

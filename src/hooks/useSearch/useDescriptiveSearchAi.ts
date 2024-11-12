@@ -24,14 +24,6 @@ export function useDescriptiveSearchAi() {
   };
 
   const handleSubmitChat = async () => {
-    if (!getTokenOpenai()) {
-      notifications.show({
-        title: "Error",
-        message: `API Key de OpenAI es requerida`,
-        color: "red",
-      });
-      return;
-    }
     if (loadingDescriptiveSearch) return;
     if (descriptiveSearchText.length <= 3) return;
     let message = descriptiveSearchText;
@@ -50,10 +42,10 @@ export function useDescriptiveSearchAi() {
     try {
       setLoadingDescriptiveSearch(true);
 
-      const { messages } = await chatBot(
-        [...conversation, { role: "user", content: message }],
-        getTokenOpenai()!
-      );
+      const { messages } = await chatBot([
+        ...conversation,
+        { role: "user", content: message },
+      ]);
 
       setConversation(messages);
       if (messages[messages.length - 1].role === "assistant") {
