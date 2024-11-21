@@ -17,6 +17,7 @@ import { UserContextProvider } from "contexts/UserContext";
 import "./globals.css";
 import { Footer } from "components/Footer";
 import { InputOpenAI } from "components/InputOpenAI";
+import { FlixBot } from "components/FlixBot";
 
 export const metadata = {
   title: "TheMovieDB AI | Hebertdev",
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: any }) {
               {children}
               <Footer />
               {/* <InputOpenAI /> */}
+              <FlixBot />
             </>
           </UserContextProvider>
         </MantineProvider>

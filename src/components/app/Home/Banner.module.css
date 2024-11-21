@@ -4,18 +4,25 @@
   position: relative;
 }
 
-.container_general::before {
-  content: "";
+.background_image {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-image: light-dark(
-    url("https://res.cloudinary.com/hebertdev1/image/upload/c_scale,w_2719/v1706397834/wallpaper_light_jgl69x.jpg"),
-    url("https://res.cloudinary.com/hebertdev1/image/upload/c_scale,w_1109/v1706397831/wallpaper_dark_okvvj8.jpg")
-  );
-  background-size: 105% 105%;
+  background-size: cover;
   background-repeat: no-repeat;
-  opacity: light-dark(0.5, 0.1);
+  background-position: center;
+}
+
+.background_image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: light-dark(rgba(0, 0, 0, 0.7));
 }
 
 .container_all {
@@ -64,6 +71,7 @@
   font-size: 40px;
   margin-bottom: 20px;
   margin-top: 20px;
+  color: #fff;
   @media screen and (max-width: 768px) {
     font-size: 20px;
     line-height: 24px;

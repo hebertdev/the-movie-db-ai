@@ -1,6 +1,9 @@
 "use client";
-
 import { Fragment, useEffect, useState } from "react";
+
+import img_flixbot from "assets/flixbot.webp";
+import styles from "./FlixBot.module.css";
+import { useDescriptiveSearchAi } from "hooks/useSearch";
 
 //mantineui
 import { Modal, Button, Box, ActionIcon, useMantineTheme } from "@mantine/core";
@@ -9,29 +12,23 @@ import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 //styles
 import classes from "./ButtonModalDescriptiveSearch.module.css";
 import { IconSend } from "@tabler/icons-react";
-import { MessageLeft, MessageRight } from "../../FlixBot/Message";
+import { MessageLeft, MessageRight } from "./Message";
 
 type Message = {
   role: string;
   content: string;
 };
-interface ButtonModalDescriptiveSearchProps {
-  handleSubmitChat: () => void;
-  handleSetDescriptiveSearchText: (value: string) => void;
-  descriptiveSearchText: string;
-  modifiedConversation: Message[];
-  loadingDescriptiveSearch: boolean;
-  handleClearConversation: () => void;
-}
 
-export function ButtonModalDescriptiveSearch({
-  handleSubmitChat,
-  handleSetDescriptiveSearchText,
-  descriptiveSearchText,
-  modifiedConversation,
-  loadingDescriptiveSearch,
-  handleClearConversation,
-}: ButtonModalDescriptiveSearchProps) {
+export function FlixBot() {
+  const {
+    descriptiveSearchText,
+    handleSetDescriptiveSearchText,
+    handleSubmitChat,
+    modifiedConversation,
+    loadingDescriptiveSearch,
+    handleClearConversation,
+  } = useDescriptiveSearchAi();
+
   const [opened, { open, close }] = useDisclosure(false);
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
@@ -46,6 +43,7 @@ export function ButtonModalDescriptiveSearch({
   const handleCloseModal = () => {
     handleClearConversation();
     close();
+    setIsFinished(false);
   };
 
   const handleSubmitFormChat = (event: React.FormEvent<HTMLFormElement>) => {
@@ -67,12 +65,17 @@ export function ButtonModalDescriptiveSearch({
 
   return (
     <>
-      <Button onClick={handleSubmitChat} loading={loadingDescriptiveSearch}>
-        Empezar
-      </Button>
+      <div className={styles.container}>
+        <img
+          src={img_flixbot.src}
+          alt="flixbot"
+          className={styles.image}
+          onClick={open}
+        />
+      </div>
       <Modal.Root
         opened={opened}
-        onClose={handleCloseModal}
+        onClose={close}
         size={mobile ? "100%" : "xl"}
         centered
       >
@@ -108,7 +111,7 @@ export function ButtonModalDescriptiveSearch({
                       }}
                     >
                       <Button w={"60%"} onClick={handleCloseModal}>
-                        Cerrar conversación
+                        Finalizar conversación
                       </Button>
                       <Button
                         w={"40%"}

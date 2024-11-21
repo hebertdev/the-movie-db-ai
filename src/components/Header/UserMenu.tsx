@@ -25,7 +25,12 @@ import { urlImageProfile } from "helpers/images";
 import Link from "next/link";
 import { useMediaQuery } from "@mantine/hooks";
 
-export function UserMenu() {
+interface UserMenuProps {
+  scrolling: boolean;
+  pathname: string;
+}
+
+export function UserMenu({ scrolling, pathname }: UserMenuProps) {
   const { user, logout } = useUserContext();
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
@@ -60,7 +65,17 @@ export function UserMenu() {
                 radius="xl"
                 size={20}
               />
-              <Text fw={500} size="sm" lh={1} mr={3}>
+              <Text
+                fw={500}
+                size="sm"
+                lh={1}
+                mr={3}
+                style={{
+                  color: `${
+                    scrolling === false && pathname === "/" ? "#636363" : ""
+                  }`,
+                }}
+              >
                 {user?.username}
               </Text>
               <IconChevronDown

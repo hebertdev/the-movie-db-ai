@@ -11,7 +11,8 @@ export async function movieRecommendationsAI(input: string) {
   try {
     // Llamada a la API de Anthropic para generar el objeto
     const msg: any = await anthropic.messages.create({
-      model: process.env.ANTHROPIC_MODEL || "claude-3-sonnet-20240229",
+      //model: process.env.ANTHROPIC_MODEL || "claude-3-sonnet-20240229",
+      model: "claude-3-5-haiku-20241022",
       max_tokens: 1000,
       temperature: 0.5, // Ajusta la temperatura si deseas más creatividad
       system:

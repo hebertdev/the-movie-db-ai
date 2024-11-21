@@ -31,7 +31,9 @@ export function ButtonLogin() {
   const [opened, { open, close }] = useDisclosure(false);
   return (
     <>
-      <Button onClick={open}>Iniciar sesión</Button>
+      <Button onClick={open} size="xs">
+        Iniciar sesión
+      </Button>
       <Modal
         opened={opened}
         onClose={close}

@@ -5,9 +5,7 @@
 }
 
 .header_with_scrolling {
-  background: light-dark(hsla(0, 0%, 100%, 0.8), #000000cc);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: light-dark(white, black);
   border-bottom: rem(1px) solid
     light-dark(var(--mantine-color-gray-2), transparent);
 }

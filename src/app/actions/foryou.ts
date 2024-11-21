@@ -9,7 +9,7 @@ const anthropic = new Anthropic({
 export async function forYouAI(input: string) {
   try {
     const msg: any = await anthropic.messages.create({
-      model: process.env.ANTHROPIC_MODEL || "claude-3-sonnet-20240229",
+      model: "claude-3-5-haiku-20241022",
       max_tokens: 1000,
       temperature: 0.5,
       system: `Tu nombre es FlixBot y eres un experto en recomendaciones de películas y series de televisión. Debes responder ÚNICAMENTE con un objeto JSON válido que siga esta estructura:

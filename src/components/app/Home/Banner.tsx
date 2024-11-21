@@ -4,6 +4,7 @@ import { FormEvent, KeyboardEvent, useEffect, useState } from "react";
 
 //helpers
 import { setValue, getValue } from "helpers/segmentBannerHome";
+import { urlImageW1900 } from "helpers/images";
 
 //hooks
 import {
@@ -30,12 +31,14 @@ import { useMediaQuery } from "@mantine/hooks";
 import classes from "./Banner.module.css";
 import { ButtonModalRecommendation } from "./ButtonModalRecommendation";
 import { ButtonModalDescriptiveSearch } from "./ButtonModalDescriptiveSearch";
+import { PopularData } from "interfaces/themoviedb";
 
-export function Banner() {
+export function Banner({ data }: { data: PopularData }) {
   const [segment, setSegment] = useState<string>("1");
-
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+
+  const url_image = urlImageW1900(data.results[0].backdrop_path);
 
   useEffect(() => {
     const savedSegment = getValue();
@@ -73,15 +76,6 @@ export function Banner() {
     handleSearch,
   } = useSimpleSearch();
 
-  const {
-    descriptiveSearchText,
-    handleSetDescriptiveSearchText,
-    handleSubmitChat,
-    modifiedConversation,
-    loadingDescriptiveSearch,
-    handleClearConversation,
-  } = useDescriptiveSearchAi();
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (segment === "1") {
@@ -98,10 +92,6 @@ export function Banner() {
         handleGenerate();
       }
 
-      if (segment === "2") {
-        handleSubmitChat();
-      }
-
       if (segment === "3") {
         handleSearch();
       }
@@ -110,6 +100,17 @@ export function Banner() {
 
   return (
     <Box className={classes.container_general}>
+      {/* Este div se usará como fondo */}
+      <Box
+        className={classes.background_image}
+        style={{
+          backgroundImage: `url(${url_image})`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      />
+
       <Container size={"xl"}>
         <Box className={classes.container_all}>
           <Box className={classes.container_info}>
@@ -127,10 +128,6 @@ export function Banner() {
                   onChange={handleSetSegment}
                   data={[
                     { label: "Exprésate", value: "1" },
-                    {
-                      label: "Busqueda descriptiva",
-                      value: "2",
-                    },
                     { label: "Busqueda normal", value: "3" },
                   ]}
                   size={mobile ? "xs" : "sm"}
@@ -152,24 +149,13 @@ export function Banner() {
                       rows={3}
                       onKeyDown={handleKeyDown}
                     />
-                    <span className={classes.span_txt}>
+                    <span
+                      className={classes.span_txt}
+                      style={{ color: "white" }}
+                    >
                       <small> {searchText.length} /120</small>
                     </span>
                   </div>
-                )}
-                {segment === "2" && (
-                  <textarea
-                    value={descriptiveSearchText}
-                    onChange={(e) =>
-                      handleSetDescriptiveSearchText(e.target.value)
-                    }
-                    placeholder={
-                      "Son dos policias que luchan contra terroristas en la ciudad de Miami."
-                    }
-                    className={classes.textarea_ai}
-                    rows={3}
-                    onKeyDown={handleKeyDown}
-                  />
                 )}
 
                 {segment === "3" && (
@@ -178,7 +164,7 @@ export function Banner() {
                     onChange={(e) => handleSetSimpleSearchText(e.target.value)}
                     placeholder={"Harry Potter."}
                     className={classes.textarea_ai}
-                    rows={3}
+                    rows={1}
                     onKeyDown={handleKeyDown}
                   />
                 )}
@@ -189,17 +175,6 @@ export function Banner() {
                     handleGenerate={handleGenerate}
                     modifiedAiResponse={modifiedAiResponse}
                     handleClearRecommendation={handleClearRecommendation}
-                  />
-                ) : segment === "2" ? (
-                  <ButtonModalDescriptiveSearch
-                    descriptiveSearchText={descriptiveSearchText}
-                    handleSetDescriptiveSearchText={
-                      handleSetDescriptiveSearchText
-                    }
-                    handleSubmitChat={handleSubmitChat}
-                    modifiedConversation={modifiedConversation}
-                    handleClearConversation={handleClearConversation}
-                    loadingDescriptiveSearch={loadingDescriptiveSearch}
                   />
                 ) : (
                   <Button

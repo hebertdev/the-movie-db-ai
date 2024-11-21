@@ -1,11 +1,20 @@
 //components
-import { Box, Container, Image, Title, Text, Rating } from "@mantine/core";
+import {
+  Box,
+  Container,
+  Image,
+  Title,
+  Text,
+  Rating,
+  Button,
+} from "@mantine/core";
 
 //styles
 import classes from "./Banner.module.css";
 import { MovieDetailsData } from "interfaces/themoviedb";
 import { urlImageW300, urlImageW1900 } from "helpers/images";
 import { ButtonVideoPlayer } from "components/MovieCard";
+import { Description } from "./Description";
 
 //interfaces
 interface BannerProps {
@@ -67,7 +76,14 @@ export function Banner({ movie }: BannerProps) {
                   <Text c={"white"} fw={"bold"}>
                     Vista general
                   </Text>
-                  <Text c={"white"}>{movie.overview}</Text>
+                  <Text c={"white"}>
+                    {movie.overview.length > 255
+                      ? movie.overview.substring(0, 255) + "..."
+                      : movie.overview}
+                    {movie.overview.length > 255 && (
+                      <Description overview={movie?.overview} />
+                    )}
+                  </Text>
                 </Box>
               </Box>
               <ButtonVideoPlayer movie={movie} />

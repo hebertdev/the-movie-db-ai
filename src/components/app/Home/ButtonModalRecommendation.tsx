@@ -56,7 +56,7 @@ export function ButtonModalRecommendation({
           </small>
         </span>
         <SimpleGrid
-          cols={{ base: 2, sm: 3, md: 4, lg: 5 }}
+          cols={{ base: 2, sm: 3, md: 4, lg: 6 }}
           spacing={{ base: 10, sm: "xl" }}
           verticalSpacing={{ base: "md", sm: "xl" }}
           style={{ marginTop: "20px" }}

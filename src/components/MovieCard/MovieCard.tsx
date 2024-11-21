@@ -60,6 +60,7 @@ export function MovieCard({ movie, trailer = false }: MovieCardProps) {
       style={{
         position: "relative",
       }}
+      radius={"lg"}
     >
       <Card.Section
         component={Link}

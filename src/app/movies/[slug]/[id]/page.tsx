@@ -19,12 +19,8 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  // read route params
   const id = params.id;
-
-  // fetch data
   const data = await getMovieDetailsAPI(id);
-
   const images = [urlImageW1900(data.poster_path)] || [];
   const previousImages = (await parent).openGraph?.images || [];
 

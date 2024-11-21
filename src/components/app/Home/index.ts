@@ -6,4 +6,4 @@ export * from "./Carrousel";
 export * from "./TrendingMovies";
 export * from "./ButtonModalRecommendation";
 export * from "./ButtonModalDescriptiveSearch";
-export * from "./Message";
+export * from "../../FlixBot/Message";

@@ -3,7 +3,7 @@ import { Card, Text, Rating, Center, Skeleton } from "@mantine/core";
 
 export function SkeletonMovieCard() {
   return (
-    <Card shadow="sm" padding="md">
+    <Card shadow="sm" padding="md" radius={"lg"}>
       <Card.Section>
         <Skeleton height={350} />
       </Card.Section>

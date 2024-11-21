@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 
 import Link from "next/link";
 
+import { usePathname } from "next/navigation";
+
 //contexts
 import { useUserContext } from "hooks/useUserContext";
 
@@ -34,6 +36,8 @@ import { ButtonLogin, DarkModeButton, UserMenu } from ".";
 import { ColorSchemeToggle } from "components/ColorSchemeToggle/ColorSchemeToggle";
 import { notifications } from "@mantine/notifications";
 
+import img_logo_dark from "assets/movie_logo_dark_2.png";
+
 export function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -59,6 +63,14 @@ export function Header() {
     handleGetUser();
   }, []);
 
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname === "/") {
+      console.log("home");
+    }
+  }, [pathname]);
+
   return (
     <Box>
       <header
@@ -68,7 +80,18 @@ export function Header() {
       >
         <Container className={classes.header_container} size={"xl"}>
           <Group justify="space-between" h="100%">
-            <Box className={classes.logo} component={Link} href={"/"} />
+            <Box
+              className={classes.logo}
+              style={{
+                backgroundImage: `${
+                  scrolling === false && pathname === "/"
+                    ? `url(${img_logo_dark.src})`
+                    : ""
+                }`,
+              }}
+              component={Link}
+              href={"/"}
+            />
             <Group h="100%" gap={0} visibleFrom="sm"></Group>
             <Group visibleFrom="sm">
               <DarkModeButton />
@@ -79,6 +102,7 @@ export function Header() {
                   leftSection={<IconSparkles />}
                   component={Link}
                   href={"/foryou"}
+                  size="xs"
                 >
                   Para tí
                 </Button>
@@ -94,21 +118,39 @@ export function Header() {
                       position: "top-center",
                     });
                   }}
+                  size="xs"
                 >
                   Para tí
                 </Button>
               )}
 
-              {user ? <UserMenu /> : <ButtonLogin />}
-              <Burger opened={drawerOpened} onClick={toggleDrawer} />
+              {user ? (
+                <UserMenu pathname={pathname} scrolling={scrolling} />
+              ) : (
+                <ButtonLogin />
+              )}
+              <Burger
+                opened={drawerOpened}
+                onClick={toggleDrawer}
+                color={`${
+                  scrolling === false && pathname === "/" ? "white" : ""
+                }`}
+              />
             </Group>
 
             <Group hiddenFrom="sm">
-              {user ? <UserMenu /> : <ButtonLogin />}
+              {user ? (
+                <UserMenu pathname={pathname} scrolling={scrolling} />
+              ) : (
+                <ButtonLogin />
+              )}
               <Burger
                 opened={drawerOpened}
                 onClick={toggleDrawer}
                 hiddenFrom="sm"
+                color={`${
+                  scrolling === false && pathname === "/" ? "white" : ""
+                }`}
               />
             </Group>
           </Group>

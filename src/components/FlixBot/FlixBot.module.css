@@ -1,0 +1,36 @@
+.container {
+  width: 80px;
+  height: 80px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  animation: moveUpDown 3s ease-in-out infinite; /* Animación */
+  z-index: 10;
+}
+
+.image {
+  cursor: pointer;
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(
+    0 0 10px rgba(255, 165, 0, 0.7)
+  ); /* Simulando borde con filtro */
+  transition: transform 0.2s ease; /* Transición suave para el cambio de tamaño */
+}
+
+/* Efecto cuando el usuario hace clic (estado activo) */
+.image:active {
+  transform: scale(0.9); /* Reduce el tamaño al 90% mientras está presionado */
+}
+
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); /* Subir 10px */
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

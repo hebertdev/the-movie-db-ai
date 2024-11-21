@@ -46,12 +46,13 @@ export function useDescriptiveSearchAi() {
         ...conversation,
         { role: "user", content: message },
       ]);
-
+      console.log(messages);
       setConversation(messages);
       if (messages[messages.length - 1].role === "assistant") {
         let string_content_to_object_content = JSON.parse(
           messages[messages.length - 1].content
         );
+
         let movies: Movie[] = [];
         if (string_content_to_object_content.movies.length > 0) {
           for (const movie of string_content_to_object_content.movies) {
@@ -116,7 +117,7 @@ export function useDescriptiveSearchAi() {
     } catch (error) {
       notifications.show({
         title: "Error",
-        message: `API Key de OpenAI es requerida`,
+        message: `Ocurrió un error en el sistema`,
         color: "red",
       });
     } finally {

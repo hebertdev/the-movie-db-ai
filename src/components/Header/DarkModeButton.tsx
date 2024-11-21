@@ -24,8 +24,8 @@ export function DarkModeButton() {
         size={"lg"}
         radius={"md"}
       >
-        <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
-        <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
+        <IconSun className={cx(classes.icon, classes.light)} />
+        <IconMoon className={cx(classes.icon, classes.dark)} />
       </ActionIcon>
     </>
   );
