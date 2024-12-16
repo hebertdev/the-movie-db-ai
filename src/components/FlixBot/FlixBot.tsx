@@ -14,12 +14,9 @@ import classes from "./ButtonModalDescriptiveSearch.module.css";
 import { IconSend } from "@tabler/icons-react";
 import { MessageLeft, MessageRight } from "./Message";
 
-type Message = {
-  role: string;
-  content: string;
-};
 
 export function FlixBot() {
+  const [hiddeMessage , setHiddeMessage] = useState(false)
   const {
     descriptiveSearchText,
     handleSetDescriptiveSearchText,
@@ -63,14 +60,25 @@ export function FlixBot() {
     }
   }, [modifiedConversation]);
 
+  const handleOpenModal = () => {
+    open()
+    setHiddeMessage(true)
+  }
+
   return (
     <>
       <div className={styles.container}>
+
+        {!hiddeMessage && (
+          <div className={styles.message} onClick={handleOpenModal}>
+            Hola estoy aquí para ayudarte
+          </div>
+        )}
         <img
           src={img_flixbot.src}
           alt="flixbot"
           className={styles.image}
-          onClick={open}
+          onClick={handleOpenModal}
         />
       </div>
       <Modal.Root

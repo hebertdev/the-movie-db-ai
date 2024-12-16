@@ -15,6 +15,13 @@ export async function getGenreMoviesAPI() {
   return data;
 }
 
+export async function getGenreTvAPI(){
+  const { data } = await axiosInstance.get<GenresData>(
+    `/genre/tv/list?language=es`
+  );
+  return data;
+}
+
 export async function getPopularMoviesAPI() {
   const { data } = await axiosInstance.get<PopularData>(
     `/discover/movie?sort_by=popularity.desc&language=es`
